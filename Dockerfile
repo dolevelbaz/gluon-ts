@@ -1,7 +1,12 @@
 FROM python:3.7
 
-ADD . /gluonts
+# get project files
+# TODO consider replacing with git clone
+COPY . /project/gluonts
 
-RUN pip install /gluonts[shell]
+WORKDIR /project/gluonts
 
-ENTRYPOINT ["python", "-m", "gluonts.shell"]
+# install python package
+RUN pip install -r requirements/requirements.txt
+RUN python setup.py install
+
